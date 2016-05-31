@@ -1,0 +1,128 @@
+* Hook
+You made a thing
+
+You want to share it to the cloud/other ppl
+
+It's hard to install from source, or when you try to send it away it breaks
+
+OR
+
+You want to install a thing someone made
+
+But it's hard to install, or has many complicated dependencies
+* Problem:
+Getting the code from 
+
+  "It works on the developer's laptop"
+
+to
+
+  "It works wherever it's useful"
+
+IE: the problem of packaging and distribution
+
+Especially in a dynamic language
+* Solution:
+Package manager!
+
+Problem with software? USE MORE SOFTWARE!
+
+Build a system for automatically managing a project's:
+ - compilers/interpreters
+ - dependencies
+ - installation
+ - verification
+&c.
+* In Python
+We distribute "Distributions", Source Code + Metadata
+
+Defines:
+ - How do we store code?
+ - What extra information do we need?
+ - How do we build a running system?
+
+File Formats: Egg, Wheel
+* Metadata
+Offical format in a conventional format (defined by PEPs 241, 314)
+
+`PKG-INFO` file:
+
+- Name
+- Version
+- Platform
+- Description
+- License
+- Links (author, homepage, keywords, &c.)
+
+Dependencies:
+
+- Requires
+- Provides
+- Conflicts with 
+
+MUST be constructed with a tool, not supposed to be written by hand
+* Tools (for building pakcages)
+** Distutils
+In the python standard library (started 1998, merged ~2000)
+
+defines `setup.py` -> starting point for all installation tasks
+
+Handles source code, metadata, version formats -- hairy details
+
+Not very pleasant to use directly
+** Setuptools
+Not in standard library, but effectively standard (built with distutils)
+
+Compiles source code into Eggs/Wheels
+
+Manages compilation, native packages, dependencies
+
+Can also define "entrypoints" - scripts, installers, make executable
+Eggs <- this is the fun stuff
+#+BEGIN_SRC python
+  import setuptools
+
+  setuptools.setup(
+      name="hello_world",
+      version="0.0.0"
+  )
+  # TODO: Expand this?
+
+#+END_SRC
+** Other Tools
+MANY MANY plugins, extensions, immature altneratives, etc. to these.
+
+There may be other plugins in `setup.py`
+* Tools (for installing packages)
+`pip` takes care of 
+
+- finding sources for things (e.g. in `pypi.org`)
+- downloading & verifying them
+- installing them to a standard, tidy place 
+
+<TODO: Link to tutorial>
+
+NB: you can run your own package server for internal packages
+** virtualenv
+For isolating dependencies (packages, python versions)
+
+- Create
+- Activate
+
+(now `python`, `pip`, etc. point to project specific executables
+configured to use project-specific packages/locations)
+
+- Deactivate
+
+(now everything is back to normal)
+
+TODO: links to tutorials
+* Conclusion
+Python makes "distributions" to send out, consist of source-code +
+metadata, managed by standard-ish tools
+
+Python packaging is a little more complicated than some languages, but
+the standard-ish tools (setuptools, pip, virtualenv) will get you a
+loooong way
+* Sources 
+<todo>

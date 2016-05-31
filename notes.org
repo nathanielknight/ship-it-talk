@@ -1,0 +1,139 @@
+* Hook
+* Problems Statement
+** Basic Problem
+I made a thing (code, data) that someone wants to use
+
+OR 
+
+I want this thing, and I have to integrate into my existing thing
+
+How do we go from "it works on the developer's machine" to "it works
+for the people who want it"?
+
+- Get something they can execute/load
+- Get the right version (and have the right versions of, e.g. their
+  interpreter
+- Get the right dependencies
+
+Particular challenges with interpreted languages
+* Solution: "Thing" + metadata + system to manage ("Things"+metadata)
+Problems with software?
+
+USE MORE SOFTWARE!
+
+Want a system for automatically managing packages:
+
+- compilers/interpreters
+- dependencies (run, test, develop)
+- install locations
+- package verification
+&c.
+* In Python:
+The things we distribute are called "distributions"
+
+Come in different flavors (source, "binary", egg, wheel)
+
+Contain Python source code (which will be interpreted by your
+python installation; pro: platform independent, con: need to have
+python installed) and possibly other things
+
+The metadata is in a conventional format (defined by PEPs)
+* Metadata
+Defined in PEP 241 (2000) , PEP 314 (2003) (draft update in PEP 427,
+started 2012)
+
+In `PKG-INFO` file:
+
+- Name
+- Version
+- Platform
+- Description
+- License
+- Links (author, homepage, keywords)
+- Requires
+- Provides
+- Obsoletes
+
+MUST be constructed by a tool, can't be provided by hand.
+* Tools (for building packages)
+Standard: Distutils and Setuptools
+(other projects exist, but are either immature or dead/obsolete)
+** Distutils
+In the python standard library
+
+defines `setup.py`
+
+TODO: What does distutils exactly do?
+
+Don't use this directly
+** Setuptools
+Built on top of setuptools
+
+Compile source code + data into eggs or wheel
+
+Manages compilation, native packages, and dependencies
+
+Can also define "entrypoints" - scripts, installers, make the artifact
+exectuable <- this is fun stuff :)
+
+Can define custom `setup.py` actions (API poorly documented but easy to use)
+** TODO Example setup.py script
+** Others
+MANY MANY plugins/extensions/immature alternatives exist as well
+(e.g. calculating version based on SCM tags, automaticall bumping
+version numbers, managing dependency lists, etc.)
+
+So you may see other plugins in `setup.py`
+
+- distribute was a fork of setuptools (now merged)
+- distutils2 was a do-over of distutils & setuptools (now dead)
+- bento is a new system a focus on supporting niche problems (still
+  immature? TODO: check)
+* Tools (for installing packages)
+** pip (and wheel)
+`pip` takes care of 
+
+- finding sources for things (e.g. in `pypi.org`)
+- downloading & verifying them
+- installing them to a standard, tidy place 
+
+
+TODO: Link to tutorial
+
+Cool things you can do with it:
+- Run your own package server for internal packages
+** virtualenv
+For isolating dependencies (packages, python versions)
+
+- Create
+- Activate
+
+(now `python`, `pip`, etc. point to project specific executables
+configured to use project-specific packages/locations)
+
+- Deactivate
+
+(now everything is back to normal)
+
+TODO: links to tutorials
+* Misc things to include
+** Version schema:
+- major, minor, patch versions
+- dev & rc versions
+* Live coding example?
+- Set up a project to print "Hello world" with a dependency (emoji?)
+- Write a `setup.py` script
+- Compile it to a wheel
+- make a new project in a virtualenv
+- install the wheel
+- show that it can be used
+* Sources
+- http://blog.startifact.com/posts/older/a-history-of-python-packaging.html
+- https://pythonhosted.org/setuptools/
+- http://www.python.org/dev/peps/pep-0241/
+- http://www.python.org/dev/peps/pep-0314/
+- https://www.python.org/dev/peps/pep-0427/
+- https://python-packaging-user-guide.readthedocs.io/en/latest/index.html
+- http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2
+
+* TODO Something in case I go super fast
