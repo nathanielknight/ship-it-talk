@@ -22,6 +22,14 @@ to
 IE: the problem of packaging and distribution
 
 Especially in a dynamic language
+* Problem (cdt):
+You try to install and
+
+- It needs something installed first
+- That something also needs something installed first
+- It's incompatible with something you've already installed
+- It straight up breaks because your environment is different
+  (e.g. Mac OS vs. Ubuntu)
 * Solution:
 Package manager!
 
@@ -61,7 +69,7 @@ Dependencies:
 - Conflicts with 
 
 MUST be constructed with a tool, not supposed to be written by hand
-* Tools (for building pakcages)
+* Libraries (for building pakcages)
 ** Distutils
 In the python standard library (started 1998, merged ~2000)
 
@@ -94,6 +102,7 @@ MANY MANY plugins, extensions, immature altneratives, etc. to these.
 
 There may be other plugins in `setup.py`
 * Tools (for installing packages)
+** pip
 `pip` takes care of 
 
 - finding sources for things (e.g. in `pypi.org`)
@@ -116,10 +125,11 @@ configured to use project-specific packages/locations)
 
 (now everything is back to normal)
 
-TODO: links to tutorials
+<TODO: link to tutorials>
 * Conclusion
-Python makes "distributions" to send out, consist of source-code +
-metadata, managed by standard-ish tools
+- Python makes "distributions" to send out
+- consist of source-code + metadata
+- managed by standard-ish tools
 
 Python packaging is a little more complicated than some languages, but
 the standard-ish tools (setuptools, pip, virtualenv) will get you a
