@@ -127,7 +127,7 @@ TODO: links to tutorials
 - make a new project in a virtualenv
 - install the wheel
 - show that it can be used
-* Sources
+* Sources & Thanks
 - http://blog.startifact.com/posts/older/a-history-of-python-packaging.html
 - https://pythonhosted.org/setuptools/
 - http://www.python.org/dev/peps/pep-0241/
@@ -135,5 +135,9 @@ TODO: links to tutorials
 - https://www.python.org/dev/peps/pep-0427/
 - https://python-packaging-user-guide.readthedocs.io/en/latest/index.html
 - http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2
-
 * TODO Something in case I go super fast
+* Notes from Feedback
+Concrete examples are useful (what are issues)
+ - problems
+ - v. compiled context
+careful live coding notes!x

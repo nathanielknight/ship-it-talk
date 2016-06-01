@@ -1,59 +1,54 @@
-* Hook
-You made a thing
+* Ship It
 
-You want to share it to the cloud/other ppl
+Python packaging and distribution
+
+* Problem: Building something with python
+
+Trying to install a tool/library, but
+
+- dependency hell
+- could not find libxyz
+
+* Problem: Distributing something that is Python
+
+You want to share a project with other Pythonistas / send it to the cloud, but 
+ 
+- all of the above
+- small differences between environments (OS X, Ubuntu, Windows)
+- breaks if you use certain versions of Python
 
 It's hard to install from source, or when you try to send it away it breaks
-
-OR
-
-You want to install a thing someone made
-
-But it's hard to install, or has many complicated dependencies
 * Problem:
-Getting the code from 
+Getting from
 
   "It works on the developer's laptop"
 
 to
 
-  "It works wherever it's useful"
+  "It works wherever it needs to"
 
-IE: the problem of packaging and distribution
+OR
 
-Especially in a dynamic language
-* Problem (cdt):
-You try to install and
+Making Eggs and Wheels
 
-- It needs something installed first
-- That something also needs something installed first
-- It's incompatible with something you've already installed
-- It straight up breaks because your environment is different
-  (e.g. Mac OS vs. Ubuntu)
-* Solution:
-Package manager!
-
-Problem with software? USE MORE SOFTWARE!
-
-Build a system for automatically managing a project's:
- - compilers/interpreters
- - dependencies
- - installation
- - verification
-&c.
+with
+- distutils & setuptools
+- pip
+- virtualenv
+* TODO Terminology
 * In Python
-We distribute "Distributions", Source Code + Metadata
+Source Code + Metadata = "Distribution"
 
 Defines:
  - How do we store code?
  - What extra information do we need?
  - How do we build a running system?
 
-File Formats: Egg, Wheel
+Common distribution file types:
+- Egg
+- Wheel
 * Metadata
 Offical format in a conventional format (defined by PEPs 241, 314)
-
-`PKG-INFO` file:
 
 - Name
 - Version
@@ -63,14 +58,12 @@ Offical format in a conventional format (defined by PEPs 241, 314)
 - Links (author, homepage, keywords, &c.)
 
 Dependencies:
-
 - Requires
 - Provides
 - Conflicts with 
 
-MUST be constructed with a tool, not supposed to be written by hand
-* Libraries (for building pakcages)
-** Distutils
+Put into `PKG-INFO` file, MUST be constructed with a tool.
+* Library: `distutils`
 In the python standard library (started 1998, merged ~2000)
 
 defines `setup.py` -> starting point for all installation tasks
@@ -78,7 +71,7 @@ defines `setup.py` -> starting point for all installation tasks
 Handles source code, metadata, version formats -- hairy details
 
 Not very pleasant to use directly
-** Setuptools
+* Library: `setuptools`
 Not in standard library, but effectively standard (built with distutils)
 
 Compiles source code into Eggs/Wheels
@@ -92,17 +85,17 @@ Eggs <- this is the fun stuff
 
   setuptools.setup(
       name="hello_world",
-      version="0.0.0"
+      version="0.0.0",
   )
-  # TODO: Expand this?
-
 #+END_SRC
-** Other Tools
-MANY MANY plugins, extensions, immature altneratives, etc. to these.
+* Other Libraries
+MANY MANY plugins, extensions, alternatives, etc.
 
-There may be other plugins in `setup.py`
-* Tools (for installing packages)
-** pip
+Varying quality, maturity, obsolescence
+
+There may be other plugins in `setup.py`; it's a python 
+script and it's not un-Pythonic to do things in it.
+* Tool: `pip`
 `pip` takes care of 
 
 - finding sources for things (e.g. in `pypi.org`)
@@ -110,9 +103,7 @@ There may be other plugins in `setup.py`
 - installing them to a standard, tidy place 
 
 <TODO: Link to tutorial>
-
-NB: you can run your own package server for internal packages
-** virtualenv
+* Tool: `virtualenv`
 For isolating dependencies (packages, python versions)
 
 - Create
@@ -134,5 +125,4 @@ configured to use project-specific packages/locations)
 Python packaging is a little more complicated than some languages, but
 the standard-ish tools (setuptools, pip, virtualenv) will get you a
 loooong way
-* Sources 
-<todo>
+* TODO Sources & Thanks
