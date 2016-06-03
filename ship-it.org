@@ -1,113 +1,173 @@
-* Ship It
+* Ship It 
+
+:ship:
 
 Python packaging and distribution
+* Caveats
+I am not an expert :sparkles:
 
+
+This talk +lies+ simplifications :see_no_evil: :hear_no_evil: :speak_no_evil:
 * Problem: Building something with python
 
 Trying to install a tool/library, but
 
-- dependency hell
-- could not find libxyz
-
+** Dependency Hell
+$ install A
+ERROR   A requires B
+$ install B
+ERROR   B requires C
+...
+ERROR   Y requires Z
+$ rm -rf /
+:(
+** Platform Dependences
+$ install A
+ERROR   Couldn't find B because I looked in the 
+        Mac OS folder instead of the Ubuntu one
+...
+$ rm -rf /
+:(
+** Version Conflicts
+$ install A
+ERROR   A requires version 2.3 of B, but you already
+        have version 2.1 installed for a different,
+        Very Important project
+...
+$ rm -rf /
+:(
+** Security
+$ install A
+ERROR   You thought you installed A, but a hacker
+        tweaked it and stole all your users' data
+:(
 * Problem: Distributing something that is Python
 
-You want to share a project with other Pythonistas / send it to the cloud, but 
- 
-- all of the above
-- small differences between environments (OS X, Ubuntu, Windows)
-- breaks if you use certain versions of Python
+You want to share your code!
 
-It's hard to install from source, or when you try to send it away it breaks
-* Problem:
+:snake: :arrow_right: :cloud:
+
+* But then!
+
+:person_with_blond_hair: Halp, building something with Python is hard!
+
+:girl: I'm trying to install under Gentoo...
+
+:older_man: Doesn't work with Python 2.3
+* The Problem:
 Getting from
 
-  "It works on the developer's laptop"
+  "It works on the developer's laptop" :bike:
 
 to
 
-  "It works wherever it needs to"
+  "It works wherever it needs to" :red_car: :blue_car: :truck: :train: :bus: :whale2:
+* Solution
 
-OR
+Package Manager
 
-Making Eggs and Wheels
+Software to automatically manage your software
+
+Code + Metadata
+* Definitions
+
+| Module       | File of Python that you can import   |
+|--------------+--------------------------------------|
+| Package      | Collection of one or more Modules    |
+|--------------+--------------------------------------|
+| Distribution | Source code + Metadata for a package |
+
+* Python Solution
+
+:file_folder: Eggs and Wheels
 
 with
-- distutils & setuptools
-- pip
-- virtualenv
-* TODO Terminology
-* In Python
-Source Code + Metadata = "Distribution"
-
-Defines:
- - How do we store code?
- - What extra information do we need?
- - How do we build a running system?
-
-Common distribution file types:
-- Egg
-- Wheel
+:snake: distutils
+:package: setuptools
+:hammer: pip
+:hammer: virtualenv
 * Metadata
-Offical format in a conventional format (defined by PEPs 241, 314)
+Official format in a conventional format
+ (defined by PEPs 241, 314)
 
-- Name
-- Version
-- Platform
-- Description
+- Name, Version
+- Author, Website, Keywords
 - License
-- Links (author, homepage, keywords, &c.)
+etc.
 
-Dependencies:
-- Requires
-- Provides
-- Conflicts with 
+Dependencies; what packages does this one:
+- Require
+- Conflict with
 
-Put into `PKG-INFO` file, MUST be constructed with a tool.
+:cop: MUST be constructed with a tool.
 * Library: `distutils`
-In the python standard library (started 1998, merged ~2000)
+:snake:
 
-defines `setup.py` -> starting point for all installation tasks
+In the Python standard library (added ~2000)
 
-Handles source code, metadata, version formats -- hairy details
+Defines `setup.py` -> starting point for installation tasks
+
+Handles source code, Metadata, version formats — *details*
 
 Not very pleasant to use directly
 * Library: `setuptools`
-Not in standard library, but effectively standard (built with distutils)
+:package:
+
+Not in standard library, (standard-ish)
 
 Compiles source code into Eggs/Wheels
 
-Manages compilation, native packages, dependencies
+Easier to work with
+* Package Structure
 
-Can also define "entrypoints" - scripts, installers, make executable
-Eggs <- this is the fun stuff
+greeter/
+├── .git/...
+├── greeter/
+│   ├── __init__.py
+│   └── ... (much code)
+├── setup.py
+├── REAMDE.md
+├── LICENSE
+└── ... (etc.)
+
+Perform commands by executing `setup.py`
+Eg:
+    $ python setup.py install
+
+* `setup.py`
 #+BEGIN_SRC python
   import setuptools
 
   setuptools.setup(
-      name="hello_world",
+      name="greeter",
+      packages=["greeter"],
       version="0.0.0",
   )
 #+END_SRC
+** TODO Link to tutorial
 * Other Libraries
-MANY MANY plugins, extensions, alternatives, etc.
+MANY MANY plug-ins, extensions, alternatives, etc.
 
 Varying quality, maturity, obsolescence
 
-There may be other plugins in `setup.py`; it's a python 
-script and it's not un-Pythonic to do things in it.
+There may be other stuff in `setup.py`; 
+that's probably okay.
 * Tool: `pip`
-`pip` takes care of 
+:hammer:
+command line tool & library
 
-- finding sources for things (e.g. in `pypi.org`)
-- downloading & verifying them
+Takes care of 
+
+- finding things (e.g. on `pypi.org`)
+- downloading & verifying packages
 - installing them to a standard, tidy place 
-
-<TODO: Link to tutorial>
+** TODO Link to tutorial
 * Tool: `virtualenv`
+:hammer:
 For isolating dependencies (packages, python versions)
 
-- Create
-- Activate
+- Create - make a folder 
+- Activate - 
 
 (now `python`, `pip`, etc. point to project specific executables
 configured to use project-specific packages/locations)
@@ -115,14 +175,20 @@ configured to use project-specific packages/locations)
 - Deactivate
 
 (now everything is back to normal)
-
-<TODO: link to tutorials>
+** TODO Virtualenv link to tutorial
+* Demo
 * Conclusion
-- Python makes "distributions" to send out
-- consist of source-code + metadata
-- managed by standard-ish tools
+- Python makes "distributions" to distribute
+- consist of source-code + Metadata
+- managed by standard (and standard-ish) tools
 
-Python packaging is a little more complicated than some languages, but
-the standard-ish tools (setuptools, pip, virtualenv) will get you a
-loooong way
+:package: setuptools
+:hammer: pip
+:hammer: virtualenv
+* Thanks
+
+@emilypearlliss feedback
+
+:blush:
 * TODO Sources & Thanks
+add links to pip and virtualenv tutorials
