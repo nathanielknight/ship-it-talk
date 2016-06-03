@@ -1,0 +1,381 @@
+<html>
+  <head>
+    <title>Ship It</title>
+    <meta charset="UTF-8">
+    <script src="static/slidy.js" charset="utf-8" type="text/javascript" ></script>
+    <script src="static/highlight.pack.js" charset="utf-8" type="text/javascript"></script>
+    <script>hljs.initHighlightingOnLoad();</script>    
+
+    <link rel="stylesheet" href="static/slidy.css" type="text/css" />
+    <link rel="stylesheet" href="static/solarized-dark.css"  />
+    <style>
+body {
+    background-color: black;
+    color: white;
+
+}
+
+div.slide {
+    font-family: monospace;
+    font-size: 28pt;
+    text-justify:left;    
+    padding-top: 1em;
+    max-width: 40em;
+    margin: auto;
+}
+
+div.slide div.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 60%;
+}
+
+
+pre {
+    margin-top: 0;
+    padding-top: 0;
+    font-family: monospace;
+}
+          </style>
+  </head>
+  <body>
+
+    <div class="slide titlepage">
+      <h1>Ship It</h1>
+      <p>Python Packaging and Distribution<p>
+      <p>Nathaniel Knight</p>
+      <p>VanPyDay 2016</p>
+    </div>
+
+
+    <div class="slide">
+      <h1>Caveats</h1>
+      <div class="container">
+        <p>
+          I am not an &#x2728; expert &#x2728;
+        </p>
+        
+        <p>
+          This talk contains simplifications
+          &#x1F648;
+          &#x1F649;
+          &#x1F64A;
+        </p>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <div class="container">
+        <h1>Trying to install a Python package</h1>
+      </div>
+    </div>        
+
+
+    <div class="slide">
+      <pre><code class="bash">
+$ pip install A
+"ERROR: A requires B"
+
+$ pip install B
+"ERROR: B requires C"
+
+...
+
+$ pip install X
+"ERROR: X requires Y"
+
+&#x1F61E;
+      </code></pre>
+    </div>
+
+
+    <div class="slide">
+      <div class="container">      
+      <pre><code class="bash">
+$ pip install A
+"ERROR: Couldn't find A beacause
+ this is Mac OS and I'm expecting Ubuntu"
+
+&#x1F61E;
+      </code></pre>
+      </div>      
+    </div>
+
+
+    <div class="slide">
+      <div class="container">
+      <pre><code class="bash">
+$ pip install A
+"ERROR: A requires B, version 2.3, but
+ version 2.1 is already installed"
+
+&#x1F615;
+      </code></pre>
+      </div>      
+    </div>
+
+
+    <div class="slide">
+      <div class="container">
+      <pre><code class="bash">
+$ pip install A
+"ERROR:  Installed A, but 
+ with a security vulnerability.
+ A hacker has stolen your data."
+
+&#x1F628;
+      </code></pre>
+      </div>      
+    </div>
+
+
+    <div class="slide">
+      <div class="container">
+        <h1>Trying to distribute a package</h1>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <p>Users:</p>      
+      <div class="container incremental">
+
+        <p> &#x1F471; Halp, building something with Python is hard! </p>
+        <p> &#x1F467; I'm trying to install under Gentoo... </p>
+        <p> &#x1F474; Doesn't work with Python 2.3 </p>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <div class="container">
+
+        <p>Get from</p>
+        
+        <p>"It works on the developer's laptop" &#x1F6B2;</p>
+
+        <p>to</p>
+
+        <p>
+          "It works anywhere it has to"
+          &#x1F697;
+          &#x1F699;
+          &#x1F69A;
+          &#x1F68E;
+          &#x1F40B;
+        </p>
+
+        <p>And it's easy to install! &#x1F476;</p>
+
+      </div>
+    </div>
+
+    
+    <div class="slide">
+      <h1>Package Manager</h1>
+      <div class="container incremental">
+        <p>Software to automatically manage your software</p>
+        <p>Needs: Code + Metadata</p>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <h1>Definitions</h1>
+      <div class="container">
+        <dl class="incremental">
+          <dt>Module</dt>
+          <dd>File of Python you can `import`</dd>
+
+          <dt>Package</dt>
+          <dd>Collection of Modules</dd>
+
+          <dt>Distribution</dt>
+          <dd>Source code + Metadata for a Package</dd>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <div class="container">
+        <h1>Python Package System</h1>
+        <p> Making and/or Using "Eggs" or "Wheels"</p>
+
+        <p>
+          &#x1F40D; distutils <br>
+          &#x1F4E6; setuptools <br>
+          &#x1F528; pip <br>
+          &#x1F528; virtualenv <br>
+        </p>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <h1>Metadata</h1>
+      <div class="container">
+        <p>Official Format from PEPs 241, 314</p>
+        <ul class="incremental">
+          <li>Name, Version</li>
+          <li>Author, Website, Keywords</li>
+          <li>License</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h1>Metadata</h1>
+      <div class="container">
+        <p>Dependencies: what packages does this one</p>
+        <ul>
+          <li>Require</li>
+          <li>Conflict With</li>
+        </ul>
+        <p> &#x1F46E; <i>Must</i> be constructed with a tool </p>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <h1>Distutils</h1>
+      <div class="container incremental">
+        <p>&#x1F40D; Standard Library (added ~2000)</p>
+        <p>Starting point for packaging/installation tasks</p>
+        <p>Handles source code, metadata, versions</p>
+        <p>Not very pleasant to use directly &#x1F621;</p>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <h1>Setuptools</h1>
+      <div class="container incremental">
+        <p>&#x1F4E6; 3rd party package (standard-ish)</p>
+        <p>Nice interface to distutils</p>
+      </div>
+    </div>
+    
+
+    <div class="slide">
+      <div class="container">
+        <pre style="line-height: 0.9em;">
+greeter/
+├── .git/...          
+├── greeter
+│   ├── ... (much code)
+│   └── __init__.py
+├── README.md
+├── LICENSE
+└── setup.py          
+        </pre>
+        <p>Perform commands by running setup.py, eg: </p>
+        <pre><code class="bash">
+$ python setup.py install
+        </code></pre>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="container">
+        <p>setuptools.py</p>
+        <pre><code class="python">
+import setuptools
+
+setuptools.setup(
+    name="greeter",
+    packages=["greeter"],
+    version="0.0.0",
+)
+        </code></pre>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <div class="container">
+        <p>Many, many plugins, extensions, etc.</p>
+        <p>Varying quality, maturity</p>
+        <div class="incremental">
+          <p> &#x1F6AA; &#x1F6AA; &#x1F6AA; </p>
+          <p> &#x1F697; &#x1F410; &#x1F410; </p>
+          <p> &#x1F527; &#x1F528; &#x1F4A3; </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <h1>pip</h1>
+      <div class="container incremental">
+        <p>&#x1F528; cmd-line tool & library</p>
+        <li>Finding things (eg: pypi.org)</li>
+        <li>Downloading & Verifying Packages</li>
+        <li>Installing them (standard place)</li>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <h1>Virtualenv</h1>
+      <div class="container incremental">
+        <p>&#x1F528; cmd-line tool</p>
+        <p>Isolates packages, Python versions</p>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <div class="container">
+        <pre><code class="bash">
+$ virtualenv .venv
+New python executable in .venv/bin/python2.7
+Installing setuptools, pip, wheel...done.
+
+$ source .venv/bin/activate
+
+(.venv) $ pip install flask
+# installs flask in .venv/
+        </code></pre>
+      </div>
+    </div>
+
+
+    <div class="slide">
+      <div class="container">
+        <p>A brief demonstration?</p>
+      </div>
+    </div>
+    
+    <div class="slide">
+      <h1>Conclusion</h1>
+      <div class="container">
+        <li>Python makes "distributions" of Source Code + Metadata</li>
+        <li>Solves problems of compatability, distribution</li>
+        <li>Managed by standard-ish tools</li>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h1>Thaaaanks!</h1>
+      <div class="container">
+        <li> Unbounce for hosting </li>
+        <li> @emilypearlliss for feedback </li>
+        <li> You all for your kind attention &#x1F60A;</li>
+      </div>
+    </div>
+
+    <div class="slide">
+      <h1>Sources</h1>
+      <div class="container">
+        <!-- todo -->
+        link to virtualenv, pip, setuptools tutorials
+      </div>
+    </div>    
+
+
+
+    <!-- TODO: Run ISpell -->
+  </body>
+</html>
