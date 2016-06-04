@@ -219,7 +219,7 @@ $ pip install A
         <p>Official Format from PEPs 241, 314</p>
         <ul class="incremental">
           <li>Name, Version</li>
-          <li>Author, Website, Keywords</li>
+          <li>Author, Web site, Keywords</li>
           <li>License</li>
         </ul>
       </div>
@@ -243,7 +243,7 @@ $ pip install A
       <div class="container incremental">
         <p>&#x1F40D; Standard Library (added ~2000)</p>
         <p>Starting point for packaging/installation tasks</p>
-        <p>Handles source code, metadata, versions</p>
+        <p>Handles source code, Metadata, versions</p>
         <p>Not very pleasant to use directly &#x1F621;</p>
       </div>
     </div>
@@ -263,7 +263,7 @@ $ pip install A
         <pre style="line-height: 0.9em;">
 greeter/
 ├── .git/...          
-├── greeter
+├── greeter/
 │   ├── ... (much code)
 │   └── __init__.py
 ├── README.md
@@ -279,7 +279,7 @@ $ python setup.py install
 
     <div class="slide">
       <div class="container">
-        <p>setuptools.py</p>
+        <p>setup.py</p>
         <pre><code class="python">
 import setuptools
 
@@ -295,7 +295,7 @@ setuptools.setup(
 
     <div class="slide">
       <div class="container">
-        <p>Many, many plugins, extensions, etc.</p>
+        <p>Many, many plug-ins, extensions, etc.</p>
         <p>Varying quality, maturity</p>
         <div class="incremental">
           <p> &#x1F6AA; &#x1F6AA; &#x1F6AA; </p>
@@ -351,14 +351,14 @@ $ source .venv/bin/activate
     <div class="slide">
       <h1>Conclusion</h1>
       <div class="container">
-        <li>Python makes "distributions" of Source Code + Metadata</li>
-        <li>Solves problems of compatability, distribution</li>
-        <li>Managed by standard-ish tools</li>
+        <li>Packaging for distribution, installation, standardization</li>
+        <li>Make and Use Eggs and Wheels</li>
+        <li>Managed by standard-ish tools (setuptools, pip, virtualenv)</li>
       </div>
     </div>
 
     <div class="slide">
-      <h1>Thaaaanks!</h1>
+      <h1>Thanks!</h1>
       <div class="container">
         <li> Unbounce for hosting </li>
         <li> @emilypearlliss for feedback </li>
@@ -369,13 +369,24 @@ $ source .venv/bin/activate
     <div class="slide">
       <h1>Sources</h1>
       <div class="container">
-        <!-- todo -->
-        link to virtualenv, pip, setuptools tutorials
+        <ul>
+          <li>
+            <a href="https://setuptools.readthedocs.io/en/latest/">
+              Setuptools Documentation
+            </a>
+          </li>
+          <li>
+            <a href="https://pip.pypa.io/en/stable/user_guide/">
+              Pip User Guide
+            </a>
+          </li>
+          <li>
+            <a href="http://docs.python-guide.org/en/latest/dev/virtualenvs/">
+              Virtualenv Tutorial
+            </a>
+          </li>
+        </ul>
       </div>
     </div>    
-
-
-
-    <!-- TODO: Run ISpell -->
   </body>
 </html>
